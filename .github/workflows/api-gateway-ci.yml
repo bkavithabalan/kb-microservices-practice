@@ -1,0 +1,32 @@
+name: API Gateway CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'api-gateway/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'api-gateway/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api-gateway
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build and test
+        run: mvn clean verify

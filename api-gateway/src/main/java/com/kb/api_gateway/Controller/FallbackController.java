@@ -11,16 +11,16 @@ import org.springframework.web.server.ServerWebExchange;
 
 @RestController
 public class FallbackController {
-
+	
 	@GetMapping("/commanFallBack")
 	public Map<String,String> fallback(ServerWebExchange exchange)
 	{
-		 Route route = exchange
-	                .getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-		 
-		 URI originalUri = exchange
-	                .getAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
+		Route route = exchange
+				.getAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
 
+		URI originalUri = exchange
+				.getAttribute(ServerWebExchangeUtils.GATEWAY_REQUEST_URL_ATTR);
+        System.out.println("adding file");
 		return Map.of(
                 "message", "Service is currently unavailable. Please try later.",
                // "path", exchange.getRequest().getPath().toString()
