@@ -2,4 +2,15 @@ spring:
   application:
     name: api-gateway
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:${CONFIG_URI:http://localhost:8888}
+
+jwt:
+  secret: KQTe2uJTp6znajDHb5w36QFPAMAhOzRJfAL9OVlogXj
+
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Currency Exchange Service
+        url: /currency-exchange-service/v3/api-docs
+      - name: Currency Conversion Service
+        url: /currency-conversion-service/v3/api-docs

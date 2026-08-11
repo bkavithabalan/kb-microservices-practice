@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
 
-@Component
+
 public class CurrencyExchangeDTO {
 	
 	private String from;	

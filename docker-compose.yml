@@ -1,0 +1,93 @@
+version: "3.8"
+services:
+  eureka-naming-server:
+    build: ./eureka-naming-server
+    image: eureka-naming-server:1.0
+    container_name: eureka-naming-server
+    ports:
+      - "8762:8762"
+    networks:
+      - microservices-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8762/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  config-server:
+    build: ./config-server
+    image: config-server:1.0
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    networks:
+      - microservices-net
+    environment:
+      - EUREKA_URI=http://eureka-naming-server:8762/eureka
+    depends_on:
+      eureka-naming-server:
+        condition: service_healthy
+    volumes:
+      - C:/MyLearnings/Git/local-git-repo:/config-repo
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8888/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  api-gateway:
+    build: ./api-gateway
+    image: api-gateway:1.0
+    container_name: api-gateway
+    ports:
+      - "8100:8100"
+    networks:
+      - microservices-net
+    environment:
+      - EUREKA_URI=http://eureka-naming-server:8762/eureka
+      - CONFIG_URI=http://config-server:8888
+    depends_on:
+      eureka-naming-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  currency-conversion-service:
+    build: ./currency-conversion-service
+    image: currency-conversion-service:1.0
+    container_name: currency-conversion-service
+    ports:
+      - "8070:8070"
+    networks:
+      - microservices-net
+    environment:
+      - EUREKA_URI=http://eureka-naming-server:8762/eureka
+      - CONFIG_URI=http://config-server:8888
+    depends_on:
+      eureka-naming-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+  currency-exchange-service:
+    build: ./currency-exchange-service
+    image: currency-exchange-service:1.0
+    container_name: currency-exchange-service
+    ports:
+      - "8090:8090"
+    networks:
+      - microservices-net
+    environment:
+      - EUREKA_URI=http://eureka-naming-server:8762/eureka
+      - CONFIG_URI=http://config-server:8888
+    depends_on:
+      eureka-naming-server:
+        condition: service_healthy
+      config-server:
+        condition: service_healthy
+
+networks:
+  microservices-net:
+    driver: bridge
