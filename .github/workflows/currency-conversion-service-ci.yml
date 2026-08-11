@@ -1,21 +1,21 @@
-name: API Gateway CI
+name: currency-conversion-service CI
 
 on:
   push:
     branches: [main]
     paths:
-      - 'api-gateway/**'
+      - 'currency-conversion-service/**'
   pull_request:
     branches: [main]
     paths:
-      - 'api-gateway/**'
+      - 'currency-conversion-service/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: api-gateway
+        working-directory: currency-conversion-service
 
     steps:
       - name: Checkout code

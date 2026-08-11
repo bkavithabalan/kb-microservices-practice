@@ -1,21 +1,21 @@
-name: API Gateway CI
+name: eureka-naming-server CI
 
 on:
   push:
     branches: [main]
     paths:
-      - 'api-gateway/**'
+      - 'eureka-naming-server/**'
   pull_request:
     branches: [main]
     paths:
-      - 'api-gateway/**'
+      - 'eureka-naming-server/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: api-gateway
+        working-directory: eureka-naming-server
 
     steps:
       - name: Checkout code

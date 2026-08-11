@@ -1,21 +1,21 @@
-name: API Gateway CI
+name: config-server CI
 
 on:
   push:
     branches: [main]
     paths:
-      - 'api-gateway/**'
+      - 'config-server/**'
   pull_request:
     branches: [main]
     paths:
-      - 'api-gateway/**'
+      - 'config-server/**'
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: api-gateway
+        working-directory: config-server
 
     steps:
       - name: Checkout code
