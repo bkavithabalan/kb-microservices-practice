@@ -6,7 +6,7 @@
 		<groupId>com.kb</groupId>
 		<artifactId>kb-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath>../kb-parent/pom.xml</relativePath> 
 	</parent>
 	<groupId>com.kb</groupId>
 	<artifactId>api-gateway</artifactId>
